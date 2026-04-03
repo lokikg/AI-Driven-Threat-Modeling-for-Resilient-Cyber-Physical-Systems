@@ -1,9 +1,0 @@
-.DS_Store
-.vscode/
-ignore/
-pre_processed_data/
-project_v0/
-SWAT_dataset/
-report/*
-!report/project_report.pdf
-texput.log

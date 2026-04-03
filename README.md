@@ -6,6 +6,8 @@
 ![Focus](https://img.shields.io/badge/Focus-Threat%20Modeling%20%7C%20Adversarial%20Risk-1F2937)
 ![Type](https://img.shields.io/badge/Project-Research%20Prototype-7C3AED)
 
+> AI-driven threat modeling for resilient cyber-physical systems using STRIDE, PASTA, LSTM-based attack detection, dynamic risk analysis, and MITRE ATT&CK for ICS.
+
 An end-to-end research project on AI-driven threat modeling for resilient cyber-physical systems (CPS), combining structured threat analysis, adversarial learning, dynamic risk scoring, comparative evaluation, and explainable security intelligence for industrial control environments.
 
 This work was developed in the context of `Cyber Security using Threat Modeling and Attack Simulation (CTMAS)` and focuses on the Secure Water Treatment (`SWaT`) CPS environment as the primary case study.
@@ -165,4 +167,3 @@ This makes the repository valuable both as an academic project and as a structur
 
 - Email: `23ucs634@lnmiit.ac.in`
 - Repository: `https://github.com/lokikg/AI-Driven-Threat-Modeling-for-Resilient-Cyber-Physical-Systems.git`
-
