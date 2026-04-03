@@ -114,7 +114,6 @@ The project is intentionally structured in the same sequence as the technical wo
 ├── Threat_Modeling_Framework.png
 ├── SWaT_CPS_Infrastructure_and_Threat_Map.png
 ├── swat_original_diagram.jpeg
-├── PROJECT_DESCRIPTION.md
 ├── README.md
 └── report/
     └── project_report.pdf
