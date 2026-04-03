@@ -163,6 +163,6 @@ This makes the repository valuable both as an academic project and as a structur
 
 ## Contact
 
-- Email: `23ucs634@gmail.com`
+- Email: `23ucs634@lnmiit.ac.in`
 - Repository: `https://github.com/lokikg/AI-Driven-Threat-Modeling-for-Resilient-Cyber-Physical-Systems.git`
 
