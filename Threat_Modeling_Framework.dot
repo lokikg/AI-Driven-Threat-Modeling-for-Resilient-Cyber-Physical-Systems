@@ -1,0 +1,166 @@
+digraph ThreatModelingFramework {
+    // Graph settings
+    rankdir=TB;
+    splines=ortho;
+    nodesep=0.8;
+    ranksep=1.2;
+    bgcolor="white";
+    fontname="Arial";
+    fontsize=12;
+    
+    // Node style defaults
+    node [shape=box, style="filled,rounded", fontname="Arial", fontsize=11, margin=0.3];
+    edge [fontname="Arial", fontsize=10, color="#333333"];
+    
+    // Title
+    label=<<FONT POINT-SIZE="16"><B>THREAT MODELING FRAMEWORK</B><BR/><FONT POINT-SIZE="12">STRIDE-LSTM Integration Architecture</FONT></FONT>>;
+    labelloc=t;
+    fontsize=16;
+    
+    // Subgraph for input layer
+    subgraph cluster_input {
+        label="Input Layer (Notebooks 0 & 2)";
+        style="dashed,rounded";
+        color="#4A90E2";
+        fontsize=12;
+        fontname="Arial Bold";
+        bgcolor="#E8F4FF";
+        
+        stride [
+            label=<
+                <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="8" BGCOLOR="#FFE5E5">
+                    <TR><TD BGCOLOR="#FF6B6B" COLSPAN="1"><FONT POINT-SIZE="12"><B>STRIDE Threats</B></FONT><BR/><FONT POINT-SIZE="9">(Notebook 0)</FONT></TD></TR>
+                    <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">• Spoofing<BR/>• Tampering<BR/>• Repudiation<BR/>• Info Disclosure<BR/>• DoS<BR/>• Elevation</FONT></TD></TR>
+                </TABLE>
+            >,
+            shape=none,
+            style=""
+        ];
+        
+        lstm [
+            label=<
+                <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="8" BGCOLOR="#E5F5FF">
+                    <TR><TD BGCOLOR="#4A90E2" COLSPAN="1"><FONT COLOR="white" POINT-SIZE="12"><B>LSTM Model</B></FONT><BR/><FONT COLOR="white" POINT-SIZE="9">(Notebook 2)</FONT></TD></TR>
+                    <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">• Attack Probability<BR/>• Time-series Analysis<BR/>• Per Window Detection<BR/>• Anomaly Scores</FONT></TD></TR>
+                </TABLE>
+            >,
+            shape=none,
+            style=""
+        ];
+        
+        {rank=same; stride; lstm;}
+    }
+    
+    // Integration Layer
+    integration [
+        label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10" BGCOLOR="#FFF9E5">
+                <TR><TD BGCOLOR="#FFD93D"><FONT POINT-SIZE="12"><B>INTEGRATION LAYER</B></FONT></TD></TR>
+                <TR><TD ALIGN="CENTER">
+                    <FONT POINT-SIZE="11"><B>Dynamic Likelihood Update</B></FONT><BR/><BR/>
+                    <FONT POINT-SIZE="10" FACE="Courier">P(threat|t) = P<SUB>base</SUB> × w<SUB>LSTM</SUB>(t)</FONT><BR/><BR/>
+                    <FONT POINT-SIZE="9">where w<SUB>LSTM</SUB>(t) = 1 + β × sensitivity × P<SUB>LSTM</SUB>(t)</FONT>
+                </TD></TR>
+            </TABLE>
+        >,
+        shape=none,
+        style=""
+    ];
+    
+    // Risk Computation Layer
+    risk [
+        label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10" BGCOLOR="#FFE5F5">
+                <TR><TD BGCOLOR="#E85D75"><FONT COLOR="white" POINT-SIZE="12"><B>RISK COMPUTATION</B></FONT></TD></TR>
+                <TR><TD ALIGN="CENTER">
+                    <FONT POINT-SIZE="11"><B>Time-Varying Risk Score</B></FONT><BR/><BR/>
+                    <FONT POINT-SIZE="10" FACE="Courier">Risk(t) = P(threat|t) × Impact × Detection_Factor</FONT><BR/><BR/>
+                    <FONT POINT-SIZE="9">Components:<BR/>• Dynamic Likelihood [0-1]<BR/>• Impact Score [0-1]<BR/>• Detection Factor [0-1]</FONT>
+                </TD></TR>
+            </TABLE>
+        >,
+        shape=none,
+        style=""
+    ];
+    
+    // Output Layer
+    ranking [
+        label=<
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10" BGCOLOR="#E5FFE5">
+                <TR><TD BGCOLOR="#6BCF7F"><FONT COLOR="white" POINT-SIZE="12"><B>DYNAMIC RANKING &amp; VISUALIZATION</B></FONT></TD></TR>
+                <TR><TD ALIGN="LEFT">
+                    <FONT POINT-SIZE="10">Outputs:<BR/>
+                    • Real-time threat prioritization<BR/>
+                    • Risk heatmaps over time<BR/>
+                    • Early warning indicators<BR/>
+                    • Threat trend analysis<BR/>
+                    • System-wide risk aggregation</FONT>
+                </TD></TR>
+            </TABLE>
+        >,
+        shape=none,
+        style=""
+    ];
+    
+    // Edges with labels
+    stride -> integration [
+        label="  Base Likelihood\n  (Design-time)",
+        fontsize=10,
+        penwidth=2,
+        color="#FF6B6B"
+    ];
+    
+    lstm -> integration [
+        label="  Attack Signal\n  (Runtime)  ",
+        fontsize=10,
+        penwidth=2,
+        color="#4A90E2"
+    ];
+    
+    integration -> risk [
+        label="  Dynamic P(threat|t)  ",
+        fontsize=10,
+        penwidth=2.5,
+        color="#FFD93D"
+    ];
+    
+    risk -> ranking [
+        label="  Risk Scores Over Time  ",
+        fontsize=10,
+        penwidth=2.5,
+        color="#E85D75"
+    ];
+    
+    // Side annotations
+    annotation1 [
+        label="WHAT threats exist?\n(Expert knowledge)",
+        shape=note,
+        style="filled",
+        fillcolor="#FFFFCC",
+        fontsize=9,
+        margin=0.2
+    ];
+    
+    annotation2 [
+        label="WHEN threats are likely?\n(Data-driven)",
+        shape=note,
+        style="filled",
+        fillcolor="#FFFFCC",
+        fontsize=9,
+        margin=0.2
+    ];
+    
+    annotation3 [
+        label="HOW severe?\n(Impact × Detection)",
+        shape=note,
+        style="filled",
+        fillcolor="#FFFFCC",
+        fontsize=9,
+        margin=0.2
+    ];
+    
+    // Annotation edges
+    stride -> annotation1 [style=dashed, color="#999999", arrowhead=none];
+    lstm -> annotation2 [style=dashed, color="#999999", arrowhead=none];
+    risk -> annotation3 [style=dashed, color="#999999", arrowhead=none];
+}

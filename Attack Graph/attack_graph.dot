@@ -1,0 +1,238 @@
+digraph SWaT_Attack_Graph {
+    // Graph attributes
+    label="Attack Graph for SWaT Cyber-Physical System\nMulti-Stage Attack Paths and Lateral Movement";
+    labelloc="t";
+    fontsize=16;
+    fontname="Arial Bold";
+    rankdir=LR;
+    ranksep=1.5;
+    nodesep=0.8;
+    compound=true;
+    
+    // Default settings
+    node [fontname="Arial", fontsize=9, margin=0.15];
+    edge [fontname="Arial", fontsize=8];
+    
+    // ==================== LEGEND ====================
+    subgraph cluster_legend {
+        label="Legend";
+        fontsize=11;
+        style=filled;
+        color=lightgrey;
+        rank=sink;
+        
+        leg_initial [label="Initial Access", shape=ellipse, style=filled, fillcolor="#FFB6C1"];
+        leg_privilege [label="Privilege/Access", shape=diamond, style=filled, fillcolor="#FFD700"];
+        leg_exploit [label="Exploitation Step", shape=box, style=filled, fillcolor="#87CEEB"];
+        leg_asset [label="Target Asset", shape=cylinder, style=filled, fillcolor="#DDA0DD"];
+        leg_impact [label="Impact/Goal", shape=octagon, style=filled, fillcolor="#FF6347"];
+        leg_condition [label="Precondition", shape=parallelogram, style=filled, fillcolor="#E0E0E0"];
+        
+        leg_initial -> leg_privilege -> leg_exploit -> leg_asset -> leg_impact [style=invis];
+        leg_condition [style=invis];
+    }
+    
+    // ==================== SECURITY ZONES ====================
+    
+    // INTERNET/EXTERNAL ZONE
+    subgraph cluster_internet {
+        label="External Network (Internet)";
+        style=filled;
+        fillcolor="#FFEBEE";
+        fontsize=11;
+        penwidth=2;
+        color="#D32F2F";
+        
+        ATTACKER [label="Attacker\n(Initial Position)", shape=ellipse, style=filled, fillcolor="#FFB6C1", penwidth=2];
+    }
+    
+    // IT/CORPORATE ZONE
+    subgraph cluster_IT {
+        label="IT/Corporate Network";
+        style=filled;
+        fillcolor="#E8F5E9";
+        fontsize=11;
+        penwidth=2;
+        color="#388E3C";
+        
+        // Initial Access Points
+        VPN_SERVER [label="VPN Server\n(Remote Access)", shape=cylinder, style=filled, fillcolor="#DDA0DD"];
+        HMI_WEB [label="HMI Web Interface\n(Port 80/443)", shape=cylinder, style=filled, fillcolor="#DDA0DD"];
+        ENG_STATION [label="Engineering\nWorkstation", shape=cylinder, style=filled, fillcolor="#DDA0DD"];
+        
+        // Exploits in IT zone
+        PHISHING [label="Spear Phishing\n[T0865]", shape=box, style=filled, fillcolor="#87CEEB"];
+        VPN_EXPLOIT [label="Exploit VPN\nVulnerability\n[T0886]", shape=box, style=filled, fillcolor="#87CEEB"];
+        HMI_EXPLOIT [label="Exploit HMI\nWeb App\n[T0819]", shape=box, style=filled, fillcolor="#87CEEB"];
+        
+        // Privileges
+        USER_ACCESS [label="User-Level\nAccess", shape=diamond, style=filled, fillcolor="#FFD700"];
+        ADMIN_ACCESS [label="Admin/Engineering\nPrivileges", shape=diamond, style=filled, fillcolor="#FFD700"];
+    }
+    
+    // DMZ/CONTROL NETWORK ZONE
+    subgraph cluster_DMZ {
+        label="Control Network (DMZ)";
+        style=filled;
+        fillcolor="#FFF9C4";
+        fontsize=11;
+        penwidth=2;
+        color="#F57C00";
+        
+        // Assets
+        SCADA_SERVER [label="SCADA Server\n(Master Station)", shape=cylinder, style=filled, fillcolor="#DDA0DD", penwidth=2];
+        HISTORIAN [label="Historian\nDatabase", shape=cylinder, style=filled, fillcolor="#DDA0DD"];
+        FIREWALL [label="IT/OT Firewall", shape=cylinder, style=filled, fillcolor="#DDA0DD"];
+        
+        // Exploits
+        LATERAL_MOVE [label="Lateral Movement\n[T0867]", shape=box, style=filled, fillcolor="#87CEEB"];
+        CRED_DUMP [label="Credential\nDumping\n[T0888]", shape=box, style=filled, fillcolor="#87CEEB"];
+        FIREWALL_BYPASS [label="Firewall\nRule Abuse\n[T0883]", shape=box, style=filled, fillcolor="#87CEEB"];
+        SCADA_COMPROMISE [label="Compromise\nSCADA Logic", shape=box, style=filled, fillcolor="#87CEEB"];
+        
+        // Privileges
+        SCADA_ACCESS [label="SCADA\nControl Access", shape=diamond, style=filled, fillcolor="#FFD700"];
+    }
+    
+    // OT/FIELD DEVICE ZONE
+    subgraph cluster_OT {
+        label="OT Network (Field Devices)";
+        style=filled;
+        fillcolor="#E1F5FE";
+        fontsize=11;
+        penwidth=2;
+        color="#0277BD";
+        
+        // Process Stages
+        PLC_P1 [label="PLC P1\n(Raw Water Intake)", shape=cylinder, style=filled, fillcolor="#DDA0DD"];
+        PLC_P2 [label="PLC P2\n(Chemical Dosing)", shape=cylinder, style=filled, fillcolor="#DDA0DD"];
+        PLC_P3 [label="PLC P3\n(Ultrafiltration)", shape=cylinder, style=filled, fillcolor="#DDA0DD"];
+        
+        // Sensors/Actuators
+        SENSOR_LIT101 [label="LIT-101\n(Level Sensor)", shape=cylinder, style=filled, fillcolor="#DDA0DD"];
+        ACTUATOR_P101 [label="P-101\n(Pump)", shape=cylinder, style=filled, fillcolor="#DDA0DD"];
+        SENSOR_FIT201 [label="FIT-201\n(Flow Sensor)", shape=cylinder, style=filled, fillcolor="#DDA0DD"];
+        
+        // Exploits
+        MODBUS_SCAN [label="Network Scan\nModbus/TCP\n[T0846]", shape=box, style=filled, fillcolor="#87CEEB"];
+        MODBUS_INJECT [label="Modbus Command\nInjection\n[T0855]", shape=box, style=filled, fillcolor="#87CEEB"];
+        PLC_REPROGRAM [label="PLC Logic\nModification\n[T0873]", shape=box, style=filled, fillcolor="#87CEEB"];
+        SENSOR_SPOOF [label="Sensor Data\nSpoofing\n[T0830]", shape=box, style=filled, fillcolor="#87CEEB"];
+        MITM_OT [label="MitM on\nOT Protocol\n[T0830]", shape=box, style=filled, fillcolor="#87CEEB"];
+        
+        // Privileges
+        PLC_ACCESS [label="PLC\nProgramming Access", shape=diamond, style=filled, fillcolor="#FFD700"];
+    }
+    
+    // PHYSICAL ZONE
+    subgraph cluster_physical {
+        label="Physical/Process Layer";
+        style=filled;
+        fillcolor="#F3E5F5";
+        fontsize=11;
+        penwidth=2;
+        color="#7B1FA2";
+        
+        WATER_TANK [label="Water Tank P1", shape=cylinder, style=filled, fillcolor="#DDA0DD"];
+        CHEMICAL_TANK [label="Chemical Tank P2", shape=cylinder, style=filled, fillcolor="#DDA0DD"];
+        
+        PHYSICAL_TAMPER [label="Physical Sensor\nTampering", shape=box, style=filled, fillcolor="#87CEEB"];
+    }
+    
+    // ==================== ATTACK PATHS ====================
+    
+    // Path 1: Phishing -> Engineering Station -> SCADA
+    ATTACKER -> PHISHING [label="1. Initial\nAccess", penwidth=1.5, color="#D32F2F"];
+    PHISHING -> ENG_STATION [label="Compromise"];
+    ENG_STATION -> USER_ACCESS [label="Obtain"];
+    USER_ACCESS -> CRED_DUMP [label="Escalate"];
+    CRED_DUMP -> ADMIN_ACCESS [label="Gain"];
+    ADMIN_ACCESS -> LATERAL_MOVE [label="Move"];
+    LATERAL_MOVE -> SCADA_SERVER [label="Target", penwidth=1.5];
+    
+    // Path 2: VPN Exploit -> SCADA
+    ATTACKER -> VPN_EXPLOIT [label="2. VPN\nExploit", penwidth=1.5, color="#1976D2"];
+    VPN_EXPLOIT -> VPN_SERVER [label="Compromise"];
+    VPN_SERVER -> USER_ACCESS;
+    
+    // Path 3: HMI Web Exploit
+    ATTACKER -> HMI_EXPLOIT [label="3. Web\nExploit", penwidth=1.5, color="#388E3C"];
+    HMI_EXPLOIT -> HMI_WEB [label="Exploit"];
+    HMI_WEB -> SCADA_SERVER [label="Pivot"];
+    
+    // SCADA Compromise Path
+    SCADA_SERVER -> SCADA_ACCESS [label="Obtain"];
+    SCADA_ACCESS -> SCADA_COMPROMISE [label="Modify"];
+    SCADA_COMPROMISE -> FIREWALL_BYPASS [label="Abuse Rules"];
+    FIREWALL_BYPASS -> FIREWALL [label="Bypass"];
+    
+    // OT Network Access
+    FIREWALL -> MODBUS_SCAN [label="Access OT", penwidth=2, color="#0277BD"];
+    MODBUS_SCAN -> PLC_P1 [label="Discover"];
+    MODBUS_SCAN -> PLC_P2 [label="Discover"];
+    MODBUS_SCAN -> PLC_P3 [label="Discover"];
+    
+    // PLC Manipulation Paths
+    PLC_P1 -> MODBUS_INJECT [label="Attack Vector"];
+    MODBUS_INJECT -> ACTUATOR_P101 [label="Control\nPump", penwidth=1.5, color="#D32F2F"];
+    MODBUS_INJECT -> SENSOR_LIT101 [label="Read/Modify\nSetpoints"];
+    
+    SCADA_ACCESS -> PLC_REPROGRAM [label="Use Credentials"];
+    PLC_REPROGRAM -> PLC_ACCESS [label="Gain"];
+    PLC_ACCESS -> PLC_P2 [label="Modify Logic"];
+    PLC_P2 -> SENSOR_FIT201 [label="Control"];
+    
+    // Sensor Spoofing Path
+    PLC_P1 -> MITM_OT [label="Intercept\nComms"];
+    MITM_OT -> SENSOR_SPOOF [label="Inject"];
+    SENSOR_SPOOF -> SENSOR_LIT101 [label="False Data"];
+    SENSOR_SPOOF -> SCADA_SERVER [label="Deceive\nOperators", style=dashed];
+    
+    // Physical Access Path
+    ATTACKER -> PHYSICAL_TAMPER [label="4. Physical\nAccess", penwidth=1.5, color="#7B1FA2", style=dashed];
+    PHYSICAL_TAMPER -> SENSOR_LIT101 [label="Disconnect"];
+    
+    // ==================== IMPACT NODES ====================
+    
+    TANK_OVERFLOW [label="Tank Overflow\n(Denial of Service)", shape=octagon, style=filled, fillcolor="#FF6347", penwidth=2];
+    CHEM_CONTAMINATION [label="Chemical\nContamination\n(Safety Impact)", shape=octagon, style=filled, fillcolor="#FF6347", penwidth=2];
+    FALSE_READINGS [label="Mislead Operators\n(Data Integrity)", shape=octagon, style=filled, fillcolor="#FF6347", penwidth=2];
+    EQUIP_DAMAGE [label="Equipment\nDamage", shape=octagon, style=filled, fillcolor="#FF6347", penwidth=2];
+    
+    ACTUATOR_P101 -> TANK_OVERFLOW [label="Disable\nPump", penwidth=2, color="#D32F2F"];
+    WATER_TANK -> TANK_OVERFLOW [label="Uncontrolled\nLevel"];
+    
+    SENSOR_FIT201 -> CHEM_CONTAMINATION [label="Wrong\nDosing", penwidth=2, color="#D32F2F"];
+    CHEMICAL_TANK -> CHEM_CONTAMINATION [label="Overdose"];
+    
+    SENSOR_SPOOF -> FALSE_READINGS [label="Spoofed\nData", penwidth=2, color="#D32F2F"];
+    
+    TANK_OVERFLOW -> EQUIP_DAMAGE [label="Physical\nDamage"];
+    
+    // ==================== PRECONDITIONS ====================
+    
+    PREC_NO_2FA [label="Precondition:\nNo 2FA on VPN", shape=parallelogram, style=filled, fillcolor="#E0E0E0", style="filled,dashed"];
+    PREC_WEAK_SEG [label="Precondition:\nWeak IT/OT\nSegmentation", shape=parallelogram, style=filled, fillcolor="#E0E0E0", style="filled,dashed"];
+    PREC_NO_AUTH [label="Precondition:\nModbus Without\nAuthentication", shape=parallelogram, style=filled, fillcolor="#E0E0E0", style="filled,dashed"];
+    PREC_UNENCRYPTED [label="Precondition:\nUnencrypted\nOT Protocol", shape=parallelogram, style=filled, fillcolor="#E0E0E0", style="filled,dashed"];
+    
+    PREC_NO_2FA -> VPN_EXPLOIT [style=dashed, color=gray, arrowhead=odot];
+    PREC_WEAK_SEG -> FIREWALL_BYPASS [style=dashed, color=gray, arrowhead=odot];
+    PREC_NO_AUTH -> MODBUS_INJECT [style=dashed, color=gray, arrowhead=odot];
+    PREC_UNENCRYPTED -> MITM_OT [style=dashed, color=gray, arrowhead=odot];
+    
+    // ==================== ANNOTATIONS ====================
+    
+    note_critical [label="Critical Attack Path:\nPhishing → SCADA → OT\n→ Physical Impact\n\nTime to Impact: 2-6 hours\nComplexity: Medium\nDetection Difficulty: High", shape=note, style=filled, fillcolor="#FFFACD", fontsize=8];
+    
+    SCADA_COMPROMISE -> note_critical [style=dotted, arrowhead=none, color=gray];
+    
+    note_defense [label="Defense Recommendations:\n• Network Segmentation\n• Modbus/TCP Authentication\n• IDS/IPS for OT Traffic\n• Sensor Data Validation\n• Anomaly Detection (LSTM)", shape=box3d, style=filled, fillcolor="#E8F5E9", fontsize=8];
+    
+    TANK_OVERFLOW -> note_defense [style=invis];
+    
+    // ==================== METRICS ====================
+    
+    stats [label="Attack Graph Metrics:\n━━━━━━━━━━━━━━━━━━━\n• Attack Paths: 4 distinct paths\n• Critical Nodes: 8 high-value targets\n• Avg Path Length: 6-8 steps\n• Entry Points: 4 (3 network, 1 physical)\n• Impact Scenarios: 4\n• MITRE Techniques: 15 mapped\n• Security Zones: 5 layers", shape=folder, style=filled, fillcolor="#E3F2FD", fontsize=8, penwidth=2];
+    
+}

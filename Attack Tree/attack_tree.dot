@@ -1,0 +1,207 @@
+digraph SWaT_Attack_Tree {
+    // Graph attributes
+    label="Attack Tree for SWaT Cyber-Physical System\nGoal: Disrupt Water Treatment Operations";
+    labelloc="t";
+    fontsize=16;
+    fontname="Arial Bold";
+    rankdir=TB;
+    ranksep=0.8;
+    nodesep=0.5;
+    
+    // Default node settings
+    node [fontname="Arial", fontsize=10, margin=0.2];
+    edge [fontname="Arial", fontsize=9];
+    
+    // Legend subgraph
+    subgraph cluster_legend {
+        label="Legend";
+        fontsize=12;
+        style=filled;
+        color=lightgrey;
+        
+        leg_critical [label="Critical Impact\n(Root Goal)", shape=doubleoctagon, style=filled, fillcolor="#FFB6C1"];
+        leg_high [label="High Impact\n(Primary Vector)", shape=octagon, style=filled, fillcolor="#FFD700"];
+        leg_medium [label="Medium Impact\n(Attack Method)", shape=box, style=filled, fillcolor="#87CEEB"];
+        leg_low [label="Low Impact\n(Technique)", shape=hexagon, style=filled, fillcolor="#90EE90"];
+        leg_enable [label="Prerequisite", shape=parallelogram, style=filled, fillcolor="#E0E0E0"];
+        leg_or [label="OR Gate\n(Any succeeds)", shape=ellipse, style=filled, fillcolor="#FFFFFF"];
+        leg_and [label="AND Gate\n(All required)", shape=box, style=filled, fillcolor="#FFFFFF"];
+        
+        leg_critical -> leg_high -> leg_medium -> leg_low -> leg_enable [style=invis];
+        leg_or -> leg_and [style=invis];
+    }
+    
+    // ==================== ROOT GOAL ====================
+    ROOT [label="[ROOT GOAL]\nDisrupt Water\nTreatment Process", shape=doubleoctagon, style=filled, fillcolor="#FFB6C1", fontsize=12, penwidth=3];
+    
+    // ==================== LEVEL 1: OR GATE ====================
+    OR1 [label="OR", shape=ellipse, style=filled, fillcolor="#FFFFFF", width=0.8, height=0.6];
+    
+    ROOT -> OR1 [penwidth=2];
+    
+    // ==================== LEVEL 2: PRIMARY ATTACK VECTORS ====================
+    A1 [label="Attack SCADA\nControl System", shape=octagon, style=filled, fillcolor="#FFD700", penwidth=2];
+    A2 [label="Manipulate\nField Devices", shape=octagon, style=filled, fillcolor="#FFD700", penwidth=2];
+    A3 [label="Corrupt Sensor\nData (DoI)", shape=octagon, style=filled, fillcolor="#FFD700", penwidth=2];
+    
+    OR1 -> A1 [label="OR"];
+    OR1 -> A2 [label="OR"];
+    OR1 -> A3 [label="OR"];
+    
+    // ==================== A1: SCADA ATTACK PATHS ====================
+    OR_A1 [label="OR", shape=ellipse, style=filled, fillcolor="#FFFFFF", width=0.6, height=0.5];
+    A1 -> OR_A1;
+    
+    A1_1 [label="Network\nIntrusion", shape=box, style=filled, fillcolor="#87CEEB"];
+    A1_2 [label="Insider\nAccess", shape=box, style=filled, fillcolor="#87CEEB"];
+    A1_3 [label="Supply Chain\nCompromise", shape=box, style=filled, fillcolor="#87CEEB"];
+    
+    OR_A1 -> A1_1 [label="OR"];
+    OR_A1 -> A1_2 [label="OR"];
+    OR_A1 -> A1_3 [label="OR"];
+    
+    // A1.1 Network Intrusion
+    OR_A1_1 [label="OR", shape=ellipse, style=filled, fillcolor="#FFFFFF", width=0.5, height=0.4];
+    A1_1 -> OR_A1_1;
+    
+    A1_1_1 [label="Exploit Internet-\nFacing HMI\n[T0819]", shape=hexagon, style=filled, fillcolor="#90EE90"];
+    A1_1_2 [label="Phishing Engineering\nWorkstation\n[T0865]", shape=hexagon, style=filled, fillcolor="#90EE90"];
+    A1_1_3 [label="VPN Vulnerability\nExploit\n[T0886]", shape=hexagon, style=filled, fillcolor="#90EE90"];
+    
+    OR_A1_1 -> A1_1_1 [label="OR"];
+    OR_A1_1 -> A1_1_2 [label="OR"];
+    OR_A1_1 -> A1_1_3 [label="OR"];
+    
+    // A1.2 Insider Access
+    AND_A1_2 [label="AND", shape=box, style=filled, fillcolor="#FFFFFF", width=0.8, height=0.5];
+    A1_2 -> AND_A1_2;
+    
+    A1_2_1 [label="Physical Access\nto Control Room", shape=parallelogram, style=filled, fillcolor="#E0E0E0"];
+    A1_2_2 [label="Valid Operator\nCredentials", shape=parallelogram, style=filled, fillcolor="#E0E0E0"];
+    A1_2_3 [label="SCADA System\nKnowledge", shape=parallelogram, style=filled, fillcolor="#E0E0E0"];
+    
+    AND_A1_2 -> A1_2_1 [label="AND"];
+    AND_A1_2 -> A1_2_2 [label="AND"];
+    AND_A1_2 -> A1_2_3 [label="AND"];
+    
+    // A1.3 Supply Chain
+    OR_A1_3 [label="OR", shape=ellipse, style=filled, fillcolor="#FFFFFF", width=0.5, height=0.4];
+    A1_3 -> OR_A1_3;
+    
+    A1_3_1 [label="Malicious\nFirmware", shape=hexagon, style=filled, fillcolor="#90EE90"];
+    A1_3_2 [label="Trojanized\nSoftware", shape=hexagon, style=filled, fillcolor="#90EE90"];
+    
+    OR_A1_3 -> A1_3_1 [label="OR"];
+    OR_A1_3 -> A1_3_2 [label="OR"];
+    
+    // ==================== A2: FIELD DEVICE MANIPULATION ====================
+    OR_A2 [label="OR", shape=ellipse, style=filled, fillcolor="#FFFFFF", width=0.6, height=0.5];
+    A2 -> OR_A2;
+    
+    A2_1 [label="Direct PLC\nAccess", shape=box, style=filled, fillcolor="#87CEEB"];
+    A2_2 [label="Modbus/TCP\nCommand Injection\n[T0855]", shape=box, style=filled, fillcolor="#87CEEB"];
+    A2_3 [label="Rogue Controller\n[T0843]", shape=box, style=filled, fillcolor="#87CEEB"];
+    
+    OR_A2 -> A2_1 [label="OR"];
+    OR_A2 -> A2_2 [label="OR"];
+    OR_A2 -> A2_3 [label="OR"];
+    
+    // A2.1 Direct PLC Access
+    AND_A2_1 [label="AND", shape=box, style=filled, fillcolor="#FFFFFF", width=0.8, height=0.5];
+    A2_1 -> AND_A2_1;
+    
+    A2_1_1 [label="Bypass Network\nSegmentation", shape=parallelogram, style=filled, fillcolor="#E0E0E0"];
+    A2_1_2 [label="PLC Programming\nKnowledge", shape=parallelogram, style=filled, fillcolor="#E0E0E0"];
+    A2_1_3 [label="Physical/Network\nAccess to OT", shape=parallelogram, style=filled, fillcolor="#E0E0E0"];
+    
+    AND_A2_1 -> A2_1_1 [label="AND"];
+    AND_A2_1 -> A2_1_2 [label="AND"];
+    AND_A2_1 -> A2_1_3 [label="AND"];
+    
+    // A2.2 Modbus Command Injection
+    OR_A2_2 [label="OR", shape=ellipse, style=filled, fillcolor="#FFFFFF", width=0.5, height=0.4];
+    A2_2 -> OR_A2_2;
+    
+    A2_2_1 [label="Write Coil\n(Pump Toggle)", shape=hexagon, style=filled, fillcolor="#90EE90"];
+    A2_2_2 [label="Write Register\n(Setpoint Change)", shape=hexagon, style=filled, fillcolor="#90EE90"];
+    A2_2_3 [label="Function Code\nAbuse [T0801]", shape=hexagon, style=filled, fillcolor="#90EE90"];
+    
+    OR_A2_2 -> A2_2_1 [label="OR"];
+    OR_A2_2 -> A2_2_2 [label="OR"];
+    OR_A2_2 -> A2_2_3 [label="OR"];
+    
+    // A2.3 Rogue Controller
+    OR_A2_3 [label="OR", shape=ellipse, style=filled, fillcolor="#FFFFFF", width=0.5, height=0.4];
+    A2_3 -> OR_A2_3;
+    
+    A2_3_1 [label="Deploy Malicious\nPLC", shape=hexagon, style=filled, fillcolor="#90EE90"];
+    A2_3_2 [label="Hardware\nImplant", shape=hexagon, style=filled, fillcolor="#90EE90"];
+    
+    OR_A2_3 -> A2_3_1 [label="OR"];
+    OR_A2_3 -> A2_3_2 [label="OR"];
+    
+    // ==================== A3: SENSOR DATA CORRUPTION ====================
+    OR_A3 [label="OR", shape=ellipse, style=filled, fillcolor="#FFFFFF", width=0.6, height=0.5];
+    A3 -> OR_A3;
+    
+    A3_1 [label="Spoofing Sensor\nReadings\n[T0830]", shape=box, style=filled, fillcolor="#87CEEB"];
+    A3_2 [label="Man-in-the-Middle\nAttack\n[T0830]", shape=box, style=filled, fillcolor="#87CEEB"];
+    A3_3 [label="Physical Sensor\nTampering", shape=box, style=filled, fillcolor="#87CEEB"];
+    
+    OR_A3 -> A3_1 [label="OR"];
+    OR_A3 -> A3_2 [label="OR"];
+    OR_A3 -> A3_3 [label="OR"];
+    
+    // A3.1 Spoofing
+    AND_A3_1 [label="AND", shape=box, style=filled, fillcolor="#FFFFFF", width=0.8, height=0.5];
+    A3_1 -> AND_A3_1;
+    
+    A3_1_1 [label="Intercept Sensor\nTraffic", shape=parallelogram, style=filled, fillcolor="#E0E0E0"];
+    A3_1_2 [label="Craft False\nSensor Values", shape=parallelogram, style=filled, fillcolor="#E0E0E0"];
+    A3_1_3 [label="Inject to SCADA\n[T0836]", shape=parallelogram, style=filled, fillcolor="#E0E0E0"];
+    
+    AND_A3_1 -> A3_1_1 [label="AND"];
+    AND_A3_1 -> A3_1_2 [label="AND"];
+    AND_A3_1 -> A3_1_3 [label="AND"];
+    
+    // A3.2 Man-in-the-Middle
+    AND_A3_2 [label="AND", shape=box, style=filled, fillcolor="#FFFFFF", width=0.8, height=0.5];
+    A3_2 -> AND_A3_2;
+    
+    A3_2_1 [label="ARP Spoofing\n[T0806]", shape=hexagon, style=filled, fillcolor="#90EE90"];
+    A3_2_2 [label="Unencrypted\nOT Protocol", shape=hexagon, style=filled, fillcolor="#90EE90"];
+    A3_2_3 [label="Modify Packets\nin Transit", shape=hexagon, style=filled, fillcolor="#90EE90"];
+    
+    AND_A3_2 -> A3_2_1 [label="AND"];
+    AND_A3_2 -> A3_2_2 [label="AND"];
+    AND_A3_2 -> A3_2_3 [label="AND"];
+    
+    // A3.3 Physical Tampering
+    OR_A3_3 [label="OR", shape=ellipse, style=filled, fillcolor="#FFFFFF", width=0.5, height=0.4];
+    A3_3 -> OR_A3_3;
+    
+    A3_3_1 [label="Disconnect\nLIT/FIT Sensors", shape=hexagon, style=filled, fillcolor="#90EE90"];
+    A3_3_2 [label="Short-circuit\nAnalog Signal", shape=hexagon, style=filled, fillcolor="#90EE90"];
+    A3_3_3 [label="Install Malicious\nSensor Device", shape=hexagon, style=filled, fillcolor="#90EE90"];
+    
+    OR_A3_3 -> A3_3_1 [label="OR"];
+    OR_A3_3 -> A3_3_2 [label="OR"];
+    OR_A3_3 -> A3_3_3 [label="OR"];
+    
+    // ==================== ANNOTATIONS ====================
+    
+    // Attack Scenario Example
+    note_scenario [label="Example Attack Scenario:\n1. Attacker gains network access\n2. Scans for Modbus devices (P-101)\n3. Sends Write Coil (0x05)\n4. Disables pump P-101\n5. Water level in P1 rises\n6. Tank overflow (DoS)\n\nSTRIDE: Denial of Service\nMITRE: T0855 (Unauthorized Command)", shape=note, style=filled, fillcolor="#FFFACD"];
+    
+    A2_2_1 -> note_scenario [style=dotted, arrowhead=none, color=gray];
+    
+    // Stealthy Attack Note
+    note_stealthy [label="Stealthy Attack:\nGradually drift LIT-101\nreadings downward while\nactual level rises.\nSCADA shows 'normal'\nwhile physical process\napproaches overflow.\n\nSTRIDE: Tampering + Spoofing", shape=note, style=filled, fillcolor="#FFFACD"];
+    
+    A3_1_3 -> note_stealthy [style=dotted, arrowhead=none, color=gray];
+    
+    // Statistics Note
+    note_stats [label="Attack Tree Metrics:\n• Total Attack Paths: 15+\n• Critical Paths: 3\n• Lowest Effort: Modbus Injection\n• Highest Impact: SCADA Compromise\n• Average Depth: 4-5 levels\n• MITRE Techniques: 12 mapped", shape=box3d, style=filled, fillcolor="#E8E8E8"];
+    
+    ROOT -> note_stats [style=invis];
+}

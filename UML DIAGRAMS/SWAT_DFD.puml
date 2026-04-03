@@ -1,0 +1,111 @@
+@startuml SWaT_CPS_DFD
+!define RECTANGLE class
+
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontSize 10
+skinparam defaultFontName Arial
+skinparam linetype ortho
+skinparam nodesep 40
+skinparam ranksep 60
+
+' ==================== TOP LAYER: OPERATOR & CONTROL ====================
+rectangle "**Human Operator**\n[External Entity]" as Operator #LightBlue
+rectangle "**HMI Interface**\n[External Entity]" as HMI #LightBlue
+rectangle "**SCADA System**\n[Control Center]" as SCADA #87CEEB
+
+Operator -down-> HMI : "Commands"
+HMI -down-> SCADA : "Control Input"
+SCADA -up-> HMI : "Status Display"
+
+' ==================== MIDDLE LAYER: PROCESS STAGES ====================
+' Top Row: P1 -> P2 -> P3
+rectangle "**P1: Raw Water Intake**\n<size:9>LIT/FIT-101, MV-101, P-101</size>" as P1 #90EE90
+
+rectangle "**P2: Chemical Dosing**\n<size:9>LIT/FIT-201, AIT-201, P-201</size>" as P2 #90EE90
+
+rectangle "**P3: Ultrafiltration**\n<size:9>LIT-301, DPIT-301, MV-301</size>" as P3 #90EE90
+
+' Bottom Row: P6 <- P5 <- P4
+rectangle "**P6: Clean Water Storage**\n<size:9>LIT/FIT-601, P-601, MV-601</size>" as P6 #90EE90
+
+rectangle "**P5: UV Treatment**\n<size:9>LIT-501, AIT-501, UV-501</size>" as P5 #90EE90
+
+rectangle "**P4: Reverse Osmosis**\n<size:9>LIT-401, AIT-401, P-401</size>" as P4 #90EE90
+
+' ==================== BOTTOM LAYER: DATA STORES ====================
+database "**Sensor\nTelemetry**" as SensorDB #FFFACD
+database "**Control\nCommands**" as ControlDB #FFFACD
+database "**Attack\nLogs**" as AttackDB #FFFACD
+database "**Historian**" as HistorianDB #FFFACD
+
+' ==================== LAYOUT ARRANGEMENT ====================
+Operator -[hidden]right- HMI
+HMI -[hidden]right- SCADA
+
+P1 -[hidden]right- P2
+P2 -[hidden]right- P3
+
+P6 -[hidden]right- P5
+P5 -[hidden]right- P4
+
+SensorDB -[hidden]right- ControlDB
+ControlDB -[hidden]right- AttackDB
+AttackDB -[hidden]right- HistorianDB
+
+' ==================== CONTROL FLOWS: SCADA <-> PROCESSES ====================
+SCADA -down-> P1 : "Setpoints"
+SCADA -down-> P2 : "Dosing"
+SCADA -down-> P3 : "Filtration"
+
+P1 -up-> SCADA : "Telemetry"
+P2 -up-> SCADA : "pH Data"
+P3 -up-> SCADA : "Pressure"
+
+SCADA -down-> P4 : "RO Config"
+SCADA -down-> P5 : "UV Control"
+SCADA -down-> P6 : "Storage"
+
+P4 -up-> SCADA : "Conductivity"
+P5 -up-> SCADA : "ORP Status"
+P6 -up-> SCADA : "Levels"
+
+' ==================== WATER FLOW BETWEEN STAGES ====================
+P1 -right-> P2 : "Raw\nWater"
+P2 -right-> P3 : "Dosed\nWater"
+P3 -down-> P4 : "Filtered\nWater"
+P4 -left-> P5 : "RO\nPermeate"
+P5 -left-> P6 : "Treated\nWater"
+P6 -up-> P1 : "Backwash"
+
+' ==================== DATA STORAGE FLOWS ====================
+SCADA -down-> SensorDB : "Write\nSensor Data"
+SCADA -down-> ControlDB : "Log\nCommands"
+SCADA -down-> HistorianDB : "Archive"
+
+SensorDB -up-> SCADA : "Query"
+ControlDB -up-> SCADA : "Retrieve"
+
+P1 -down-> AttackDB : "Labels"
+P2 -down-> AttackDB : "Labels"
+P3 -down-> AttackDB : "Labels"
+P4 -down-> AttackDB : "Labels"
+P5 -down-> AttackDB : "Labels"
+P6 -down-> AttackDB : "Labels"
+
+' ==================== LEGEND ====================
+legend bottom right
+**SWaT CPS Data Flow Diagram**
+|= Symbol |= Description |
+| <back:#ADD8E6>    </back> | External Entity |
+| <back:#87CEEB>    </back> | Control System |
+| <back:#90EE90>    </back> | Process Stage |
+| <back:#FFFACD>    </back> | Data Store |
+
+**System Overview:**
+* 6 Process Stages (P1-P6)
+* 51+ Sensors/Actuators
+* 1 Hz Sampling Rate
+* 36 Attack Scenarios
+endlegend
+
+@enduml

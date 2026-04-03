@@ -1,0 +1,205 @@
+//===================================================================
+// SWaT Activity Diagram - MODIFIED FOR THREAT MODELING PROJECT
+// Highlights: Attack Surfaces, Critical Sensors, Vulnerable Components
+// Color Legend:
+//   RED = HIGH RISK Attack Target (Critical Sensors/Actuators)
+//   ORANGE = MEDIUM RISK (Chemical Dosing, Process Control)
+//   YELLOW = Monitored Sensor (Attack Detection Point)
+//   LIGHTBLUE = Normal Component
+//===================================================================
+
+digraph SWaT {
+    rankdir=LR;
+    splines=ortho;
+    node [shape=box, style=rounded];
+    
+    // NEW: SCADA/Control Layer (Added for threat modeling)
+    subgraph cluster_SCADA {
+        label="SCADA/Control Layer\n[ADDED: Attack Surface]";
+        style=filled;
+        color=red;
+        fillcolor="#FFEBEE";
+        
+        SCADA [label="SCADA Server\n[THREAT: T0855, T0883]\nModbus/DNP3", 
+               shape=box, style="filled,rounded", fillcolor="#FF6B6B"];
+        HMI [label="HMI Interface\n[THREAT: T0886]\nUnauth Access", 
+             shape=box, style="filled,rounded", fillcolor="#FF6B6B"];
+        
+        SCADA -> HMI [label="Control Commands", color=red, penwidth=2];
+    }
+
+    // -------- P1 [MODIFIED: Added attack indicators] --------
+    subgraph cluster_P1 {
+        label="P1 - Raw Water Intake\n[MODIFIED: Highlighted Attack Targets]";
+        style=filled;
+        fillcolor="#FFF3E0";
+
+        // MODIFIED: MV101 highlighted as attack target
+        MV101 [label="MV101 (Motorized Valve)\n[ATTACK TARGET]\n[STRIDE: Tampering]",
+               style="filled,rounded", fillcolor="#FF9800", color=red, penwidth=2];
+        
+        // MODIFIED: LIT101 sensor highlighted as critical
+        T101 [label="Raw Water Tank T101\n[TARGET] LIT101 (Level Sensor)\n[STRIDE: Spoofing]\n[CRITICAL SENSOR]",
+              style="filled,rounded", fillcolor="#FFEB3B", color=red, penwidth=2];
+        
+        // MODIFIED: P101 pump highlighted as attack target
+        P101 [label="Pump P101\n[ATTACK TARGET]\n[STRIDE: DoS]\nOver-run Risk",
+              style="filled,rounded", fillcolor="#FF9800", color=red, penwidth=2];
+
+        MV101 -> T101 -> P101;
+        
+        // NEW: Control link from SCADA
+        SCADA -> MV101 [label="Control\n[Attack Vector]", color=red, style=dashed, penwidth=2];
+        SCADA -> P101 [label="Control\n[Attack Vector]", color=red, style=dashed, penwidth=2];
+    }
+
+    // -------- P2 [MODIFIED: Chemical dosing vulnerabilities] --------
+    subgraph cluster_P2 {
+        label="P2 - Chemical Dosing\n[MODIFIED: Chemical Injection Threats]";
+        style=filled;
+        fillcolor="#FFF3E0";
+
+        // MODIFIED: Chemical tanks marked as tampering targets
+        HCL [label="HCL Tank\n[TAMPERING RISK]\n[STRIDE: Tampering]",
+             style="filled,rounded", fillcolor="#FFA726"];
+        P201 [label="P201 (Dosing Pump)\n[ATTACK TARGET]",
+              style="filled,rounded", fillcolor="#FF9800", color=red, penwidth=2];
+
+        NaOCl [label="NaOCl Tank\n[TAMPERING RISK]\n[STRIDE: Tampering]",
+               style="filled,rounded", fillcolor="#FFA726"];
+        P203 [label="P203 (Dosing Pump)\n[ATTACK TARGET]",
+              style="filled,rounded", fillcolor="#FF9800", color=red, penwidth=2];
+
+        NaCl [label="NaCl Tank\n[TAMPERING RISK]\n[STRIDE: Tampering]",
+              style="filled,rounded", fillcolor="#FFA726"];
+        P205 [label="P205 (Dosing Pump)\n[ATTACK TARGET]",
+              style="filled,rounded", fillcolor="#FF9800", color=red, penwidth=2];
+
+        Mixer [label="Static Mixer\n[IMPACT: Contamination]",
+               style="filled,rounded", fillcolor="#FFD54F"];
+        
+        // MODIFIED: Analyzers highlighted as critical sensors
+        AIT202 [label="AIT202, AIT203\n[CRITICAL SENSORS]\n[STRIDE: Spoofing]\nConductivity/pH",
+                style="filled,rounded", fillcolor="#FFEB3B", color=red, penwidth=2];
+        
+        MV201 [label="MV201 (Motorized Valve)\n[ATTACK TARGET]",
+               style="filled,rounded", fillcolor="#FF9800", color=red, penwidth=2];
+
+        HCL -> P201 -> Mixer;
+        NaOCl -> P203 -> Mixer;
+        NaCl -> P205 -> Mixer;
+
+        Mixer -> AIT202 -> MV201;
+        
+        // NEW: Control links from SCADA
+        SCADA -> P201 [label="Control", color=red, style=dashed];
+        SCADA -> P203 [label="Control", color=red, style=dashed];
+        SCADA -> P205 [label="Control", color=red, style=dashed];
+    }
+
+    // -------- P3 [MODIFIED: UF stage vulnerabilities] --------
+    subgraph cluster_P3 {
+        label="P3 - Ultrafiltration\n[MODIFIED: Process Disruption Targets]";
+        style=filled;
+        fillcolor="#E8F5E9";
+
+        // MODIFIED: LIT301 highlighted as critical sensor
+        T301 [label="UF Feed Tank T301\n[TARGET] LIT301 (Level Sensor)\n[STRIDE: Spoofing]",
+              style="filled,rounded", fillcolor="#FFEB3B"];
+        
+        P301 [label="UF Feed Pump P301\n[ATTACK TARGET]",
+              style="filled,rounded", fillcolor="#FF9800"];
+        
+        // MODIFIED: DPIT301 highlighted as critical pressure sensor
+        UF [label="Ultrafiltration Unit\n[TARGET] DPIT301 (Pressure)\n[STRIDE: Spoofing]\n[CRITICAL SENSOR]",
+            style="filled,rounded", fillcolor="#FFEB3B", color=orange, penwidth=2];
+
+        T301 -> P301 -> UF;
+        
+        SCADA -> P301 [label="Control", color=red, style=dashed];
+    }
+
+    // -------- P4 [MODIFIED: RO feed vulnerabilities] --------
+    subgraph cluster_P4 {
+        label="P4 - RO Feed\n[MODIFIED: Dechlorination Threats]";
+        style=filled;
+        fillcolor="#E8F5E9";
+
+        // MODIFIED: LIT401 highlighted as critical sensor (used in attack scenarios)
+        T401 [label="RO Feed Tank T401\n[TARGET] LIT401 (Level Sensor)\n[STRIDE: Spoofing]\n[HIGH VALUE TARGET]",
+              style="filled,rounded", fillcolor="#FFEB3B", color=red, penwidth=2];
+        
+        P401 [label="RO Feed Pump P401\n[ATTACK TARGET]",
+              style="filled,rounded", fillcolor="#FF9800"];
+        
+        // MODIFIED: AIT402 highlighted as critical analyzer
+        UV [label="UV Dechlorinator\n[TARGET] AIT402 (ORP Sensor)\n[STRIDE: Spoofing]",
+            style="filled,rounded", fillcolor="#FFEB3B"];
+        
+        NaHSO3 [label="NaHSO3 Dosing\n[TAMPERING RISK]",
+                style="filled,rounded", fillcolor="#FFA726"];
+
+        T401 -> P401 -> UV -> NaHSO3;
+        
+        SCADA -> P401 [label="Control", color=red, style=dashed];
+    }
+
+    // -------- P5 [MODIFIED: RO stage vulnerabilities] --------
+    subgraph cluster_P5 {
+        label="P5 - Reverse Osmosis\n[MODIFIED: High-Value Targets]";
+        style=filled;
+        fillcolor="#E1F5FE";
+
+        // MODIFIED: AIT503 highlighted
+        CF [label="Cartridge Filter\n[TARGET] AIT503 (Sensor)\n[STRIDE: Spoofing]",
+            style="filled,rounded", fillcolor="#FFEB3B"];
+        
+        P501 [label="RO Boost Pump P501\n[ATTACK TARGET]\n[IMPACT: Membrane Damage]",
+              style="filled,rounded", fillcolor="#FF9800", color=red, penwidth=2];
+        
+        // MODIFIED: RO unit marked as high-value asset
+        RO [label="Reverse Osmosis Unit\n[TARGET] AIT504 (Sensor)\n[STRIDE: Info Disclosure]\n[HIGH-VALUE ASSET]",
+            style="filled,rounded", fillcolor="#4FC3F7", color=blue, penwidth=2];
+
+        CF -> P501 -> RO;
+        
+        SCADA -> P501 [label="Control", color=red, style=dashed];
+    }
+
+    // -------- P6 [MODIFIED: Backwash vulnerabilities] --------
+    subgraph cluster_P6 {
+        label="P6 - Backwash System\n[MODIFIED: Recirculation Threats]";
+        style=filled;
+        fillcolor="#F3E5F5";
+
+        T502 [label="UF Backwash Tank T502\n[Risk: Contamination Loop]",
+              style="filled,rounded", fillcolor="#CE93D8"];
+        
+        T501 [label="Raw Permeate Tank T501\n[Monitoring Point]",
+              style="filled,rounded", fillcolor="#CE93D8"];
+        
+        P602 [label="UF Backwash Pump P602\n[ATTACK TARGET]",
+              style="filled,rounded", fillcolor="#FF9800"];
+
+        T502 -> P602;
+        T501 -> P602;
+        
+        SCADA -> P602 [label="Control", color=red, style=dashed];
+    }
+
+    // -------- Connections between stages --------
+    P101 -> HCL;
+    MV201 -> T301;
+    UF -> T401;
+    NaHSO3 -> CF;
+    RO -> T502;
+    P602 -> T101 [label="Recirculation\n[Risk: Attack Loop]", color=purple, penwidth=2];
+    
+    // NEW: Attack scenarios annotation
+    AttackNote [label="[ALERT] ATTACK SCENARIOS:\n* Tank Overflow (LIT101)\n* Chemical Overdose (P201/203/205)\n* Pressure Manipulation (DPIT301)\n* False Level Readings (LIT401)\n* Equipment Damage (P501)",
+                shape=note, style=filled, fillcolor="#FFCDD2", color=red, penwidth=2];
+    
+    // NEW: Legend
+    Legend [label="LEGEND:\n[TARGET] = Critical Sensor (Spoofing Target)\n[ATTACK] = Attack Target (Tampering/DoS)\n[VALUE] = High-Value Asset\nRED Border = High Risk\nORANGE Fill = Attack Surface\nYELLOW Fill = Sensor/Monitor\nDashed Red = Control Attack Vector",
+            shape=box, style=filled, fillcolor="#E8EAF6", color=blue, penwidth=2];
+}
