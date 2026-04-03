@@ -129,14 +129,10 @@ The polished project report is available here:
 
 To keep the GitHub repository clean, lightweight, and shareable, the following directories are intentionally excluded from version control:
 
-- `ignore/`
 - `pre_processed_data/`
-- `project_v0/`
 - `SWAT_dataset/`
-- `.vscode/`
-- all files inside `report/` except `project_report.pdf`
 
-This means the repository primarily contains the notebook pipeline, design artifacts, diagrams, and final PDF report. The heavy intermediate datasets, generated arrays, trained model files, and local report source/build files remain outside the published repository.
+The heavy intermediate datasets, generated arrays, trained model files, and local report source/build files remain outside the published repository.
 
 ## Project Significance
 
