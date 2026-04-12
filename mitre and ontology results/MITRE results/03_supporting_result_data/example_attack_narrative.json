@@ -1,0 +1,41 @@
+{
+  "threat_id": "T2",
+  "alert_level": "HIGH",
+  "detection": {
+    "lstm_probability": 1.0,
+    "confidence": "High"
+  },
+  "threat": {
+    "category": "Spoofing",
+    "description": "Spoofed sensor readings causing unsafe control",
+    "component": "Sensor Network",
+    "severity": "Critical",
+    "impact": "System failure, safety hazard"
+  },
+  "attacker_techniques": [
+    {
+      "technique_id": "T0856",
+      "technique_name": "Spoof Reporting Message",
+      "tactic": "Impair Process Control",
+      "description": "Adversaries may spoof reporting messages to hide malicious activity."
+    },
+    {
+      "technique_id": "T0835",
+      "technique_name": "Manipulate I/O Image",
+      "tactic": "Impair Process Control",
+      "description": "Adversaries may manipulate I/O image to affect process control."
+    },
+    {
+      "technique_id": "T0832",
+      "technique_name": "Manipulation of View",
+      "tactic": "Impair Process Control",
+      "description": "Adversaries may manipulate operator displays to hide malicious activity."
+    }
+  ],
+  "mitigations": [
+    "Implement cryptographic authentication for sensor data",
+    "Deploy network segmentation to isolate sensor networks",
+    "Enable Modbus/DNP3 security extensions",
+    "Monitor for anomalous sensor value changes"
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "static_ranking": [
+    {
+      "Rank": 1,
+      "Threat ID": "T2",
+      "STRIDE": "Spoofing",
+      "Threat": "Spoofed sensor readings causing unsafe control",
+      "Risk": 1.5
+    },
+    {
+      "Rank": 2,
+      "Threat ID": "T3",
+      "STRIDE": "Spoofing",
+      "Threat": "SCADA credential theft via phishing",
+      "Risk": 1.4400000000000002
+    },
+    {
+      "Rank": 3,
+      "Threat ID": "T5",
+      "STRIDE": "Elevation",
+      "Threat": "Elevation of privilege on HMI workstation",
+      "Risk": 1.44
+    },
+    {
+      "Rank": 4,
+      "Threat ID": "T1",
+      "STRIDE": "Tampering",
+      "Threat": "Malicious PLC ladder logic injection",
+      "Risk": 0.8999999999999999
+    },
+    {
+      "Rank": 5,
+      "Threat ID": "T4",
+      "STRIDE": "DoS",
+      "Threat": "Denial of service against control network",
+      "Risk": 0.8
+    },
+    {
+      "Rank": 6,
+      "Threat ID": "T6",
+      "STRIDE": "Tampering",
+      "Threat": "Tampering with historian data",
+      "Risk": 0.2
+    },
+    {
+      "Rank": 7,
+      "Threat ID": "T7",
+      "STRIDE": "DoS",
+      "Threat": "Physical destruction of sensor network",
+      "Risk": 0.15
+    },
+    {
+      "Rank": 8,
+      "Threat ID": "T8",
+      "STRIDE": "Info Disclosure",
+      "Threat": "Information disclosure of control algorithms",
+      "Risk": 0.144
+    }
+  ],
+  "dynamic_normal_ranking": [
+    {
+      "Rank": 1,
+      "Threat ID": "T2",
+      "STRIDE": "Spoofing",
+      "Threat": "Spoofed sensor readings causing unsafe control",
+      "Risk": 1.5911466479301453
+    },
+    {
+      "Rank": 2,
+      "Threat ID": "T3",
+      "STRIDE": "Spoofing",
+      "Threat": "SCADA credential theft via phishing",
+      "Risk": 1.5275008002519603
+    },
+    {
+      "Rank": 3,
+      "Threat ID": "T5",
+      "STRIDE": "Elevation",
+      "Threat": "Elevation of privilege on HMI workstation",
+      "Risk": 1.4983339133262634
+    },
+    {
+      "Rank": 4,
+      "Threat ID": "T1",
+      "STRIDE": "Tampering",
+      "Threat": "Malicious PLC ladder logic injection",
+      "Risk": 0.9729173505306243
+    },
+    {
+      "Rank": 5,
+      "Threat ID": "T4",
+      "STRIDE": "DoS",
+      "Threat": "Denial of service against control network",
+      "Risk": 0.8388892495632172
+    },
+    {
+      "Rank": 6,
+      "Threat ID": "T6",
+      "STRIDE": "Tampering",
+      "Threat": "Tampering with historian data",
+      "Risk": 0.21620385140180587
+    },
+    {
+      "Rank": 7,
+      "Threat ID": "T7",
+      "STRIDE": "DoS",
+      "Threat": "Physical destruction of sensor network",
+      "Risk": 0.15729173429310322
+    },
+    {
+      "Rank": 8,
+      "Threat ID": "T8",
+      "STRIDE": "Info Disclosure",
+      "Threat": "Information disclosure of control algorithms",
+      "Risk": 0.14575001272559165
+    }
+  ],
+  "dynamic_attack_ranking": [
+    {
+      "Rank": 1,
+      "Threat ID": "T2",
+      "STRIDE": "Spoofing",
+      "Threat": "Spoofed sensor readings causing unsafe control",
+      "Risk": 1.8076956260204315
+    },
+    {
+      "Rank": 2,
+      "Threat ID": "T3",
+      "STRIDE": "Spoofing",
+      "Threat": "SCADA credential theft via phishing",
+      "Risk": 1.735387830376625
+    },
+    {
+      "Rank": 3,
+      "Threat ID": "T5",
+      "STRIDE": "Elevation",
+      "Threat": "Elevation of privilege on HMI workstation",
+      "Risk": 1.6369252552986147
+    },
+    {
+      "Rank": 4,
+      "Threat ID": "T1",
+      "STRIDE": "Tampering",
+      "Threat": "Malicious PLC ladder logic injection",
+      "Risk": 1.1461565467715262
+    },
+    {
+      "Rank": 5,
+      "Threat ID": "T4",
+      "STRIDE": "DoS",
+      "Threat": "Denial of service against control network",
+      "Risk": 0.9312834870815277
+    },
+    {
+      "Rank": 6,
+      "Threat ID": "T6",
+      "STRIDE": "Tampering",
+      "Threat": "Tampering with historian data",
+      "Risk": 0.2547014492750168
+    },
+    {
+      "Rank": 7,
+      "Threat ID": "T7",
+      "STRIDE": "DoS",
+      "Threat": "Physical destruction of sensor network",
+      "Risk": 0.17461565382778643
+    },
+    {
+      "Rank": 8,
+      "Threat ID": "T8",
+      "STRIDE": "Info Disclosure",
+      "Threat": "Information disclosure of control algorithms",
+      "Risk": 0.1499077523946762
+    }
+  ],
+  "metadata": {
+    "n_threats_total": 8,
+    "n_threats_displayed": 8,
+    "ranking_metric": "Risk Score (Likelihood \u00d7 Impact \u00d7 Detection Factor)"
+  }
+}

@@ -1,0 +1,33 @@
+Sensor Network Spoofing {'relation': 'threatens', 'weight': 1.5}
+Sensor Network DoS {'relation': 'threatens', 'weight': 0.15}
+SCADA Spoofing {'relation': 'threatens', 'weight': 1.4400000000000002}
+SCADA Tampering {'relation': 'threatens', 'weight': 0.2}
+HMI Elevation {'relation': 'threatens', 'weight': 1.44}
+PLC Tampering {'relation': 'threatens', 'weight': 0.8999999999999999}
+PLC Info Disclosure {'relation': 'threatens', 'weight': 0.144}
+Control Network DoS {'relation': 'threatens', 'weight': 0.8}
+Spoofing System failure, safety hazard {'relation': 'causes', 'weight': 1.0}
+Spoofing Spoof Reporting Message {'relation': 'uses', 'weight': 1.0}
+Spoofing Manipulate I/O Image {'relation': 'uses', 'weight': 1.0}
+Spoofing Manipulation of View {'relation': 'uses', 'weight': 1.0}
+Spoofing Internet Accessible Device {'relation': 'uses', 'weight': 1.0}
+Spoofing Command-Line Interface {'relation': 'uses', 'weight': 1.0}
+Elevation System failure, safety hazard {'relation': 'causes', 'weight': 1.0}
+Elevation Command-Line Interface {'relation': 'uses', 'weight': 1.0}
+Elevation Modify System Firmware {'relation': 'uses', 'weight': 1.0}
+Tampering System failure, safety hazard {'relation': 'causes', 'weight': 1.0}
+Tampering Minimal impact, easily recoverable {'relation': 'causes', 'weight': 1.0}
+Tampering Modify Parameter {'relation': 'uses', 'weight': 1.0}
+Tampering Manipulation of Control {'relation': 'uses', 'weight': 1.0}
+Tampering Modify System Firmware {'relation': 'uses', 'weight': 1.0}
+Tampering Data Destruction {'relation': 'uses', 'weight': 1.0}
+Tampering Indicator Removal on Host {'relation': 'uses', 'weight': 1.0}
+DoS System failure, safety hazard {'relation': 'causes', 'weight': 1.0}
+DoS Minimal impact, easily recoverable {'relation': 'causes', 'weight': 1.0}
+DoS Denial of Service {'relation': 'uses', 'weight': 1.0}
+DoS Denial of Control {'relation': 'uses', 'weight': 1.0}
+DoS Loss of Availability {'relation': 'uses', 'weight': 1.0}
+DoS Device Restart/Shutdown {'relation': 'uses', 'weight': 1.0}
+Info Disclosure Minimal impact, easily recoverable {'relation': 'causes', 'weight': 1.0}
+Info Disclosure Automated Collection {'relation': 'uses', 'weight': 1.0}
+Info Disclosure Program Upload {'relation': 'uses', 'weight': 1.0}

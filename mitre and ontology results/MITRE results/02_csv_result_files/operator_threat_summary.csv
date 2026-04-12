@@ -1,0 +1,9 @@
+Priority,Threat_ID,Category,Component,Severity,Risk_Score,MITRE_Techniques,Description
+1,T2,Spoofing,Sensor Network,Critical,1.500,"T0856, T0835, T0832",Spoofed sensor readings causing unsafe control
+2,T3,Spoofing,SCADA,Critical,1.440,"T0883, T0807",SCADA credential theft via phishing
+3,T5,Elevation,HMI,Critical,1.440,"T0807, T0838",Elevation of privilege on HMI workstation
+4,T1,Tampering,PLC,Critical,0.900,"T0836, T0831, T0838",Malicious PLC ladder logic injection
+5,T4,DoS,Control Network,Critical,0.800,"T0814, T0813, T0826",Denial of service against control network
+6,T6,Tampering,SCADA,Low,0.200,"T0809, T0872",Tampering with historian data
+7,T7,DoS,Sensor Network,Low,0.150,"T0814, T0816",Physical destruction of sensor network
+8,T8,Info Disclosure,PLC,Low,0.144,"T0802, T0845",Information disclosure of control algorithms

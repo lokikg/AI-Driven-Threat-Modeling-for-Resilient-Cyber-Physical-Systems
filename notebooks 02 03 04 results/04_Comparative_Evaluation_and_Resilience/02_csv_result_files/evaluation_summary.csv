@@ -1,0 +1,12 @@
+Evaluation Dimension,STRIDE-only,PASTA+LSTM,STRIDE+LSTM (Integrated)
+Detection Accuracy,0.942,0.996,0.996
+Detection Precision,0.000,0.933,0.933
+Detection Recall,0.000,0.997,0.997
+F1-Score,0.000,0.964,0.964
+ROC AUC,0.500,1.000,1.000
+False Positive Rate,0.000,0.004,0.004
+Early Detection (Lead Time),0.0 steps,16.9 steps,16.9 steps
+Threat Categorization,Yes (6 categories),Yes (6 risk-quantified threats),Yes (8 threats)
+Risk Prioritization,Static,Risk-centric (Quantified),Dynamic
+Explainability,High (structured),High (attacker-focused),High (hybrid)
+Resilience Score,0.000,0.794,0.992

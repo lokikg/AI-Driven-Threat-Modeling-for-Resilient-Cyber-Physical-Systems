@@ -111,6 +111,13 @@ The project is intentionally structured in the same sequence as the technical wo
 ├── Attack Graph/
 ├── Attack Tree/
 ├── UML DIAGRAMS/
+├── mitre and ontology results/
+│   ├── MITRE results/
+│   └── Ontology results/
+├── notebooks 02 03 04 results/
+│   ├── 02_LSTM_Adversarial_Learning/
+│   ├── 03_STRIDE_LSTM_Integration_and_Risk/
+│   └── 04_Comparative_Evaluation_and_Resilience/
 ├── Threat_Modeling_Framework.png
 ├── SWaT_CPS_Infrastructure_and_Threat_Map.png
 ├── swat_original_diagram.jpeg
@@ -125,6 +132,13 @@ The polished project report is available here:
 
 - [Project Report PDF](report/project_report.pdf)
 
+## Result Folders
+
+The repository includes selected exported results for review and reference:
+
+- `mitre and ontology results/` contains the MITRE ATT&CK for ICS mapping outputs, ontology outputs, diagrams, CSV summaries, and supporting JSON/GraphML files.
+- `notebooks 02 03 04 results/` contains the organized outputs from LSTM adversarial learning, STRIDE-LSTM dynamic risk analysis, and comparative evaluation.
+
 ## Important Repository Note
 
 To keep the GitHub repository clean, lightweight, and shareable, the following directories are intentionally excluded from version control:
@@ -132,7 +146,7 @@ To keep the GitHub repository clean, lightweight, and shareable, the following d
 - `pre_processed_data/`
 - `SWAT_dataset/`
 
-The heavy intermediate datasets, generated arrays, trained model files, and local report source/build files remain outside the published repository.
+The full intermediate datasets, raw SWaT dataset, and local report source/build files remain outside the published repository. Only selected result exports required for evaluation and presentation are included.
 
 ## Project Significance
 

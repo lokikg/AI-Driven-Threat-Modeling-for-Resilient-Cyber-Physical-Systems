@@ -1,0 +1,38 @@
+{
+  "static_baseline": {
+    "total_risk": 6.574,
+    "per_threat_mean": 0.82175
+  },
+  "dynamic_overall": {
+    "mean": 7.148984183905414,
+    "median": 7.079767445847393,
+    "std": 0.5173205308577367,
+    "min": 6.574004661291838,
+    "max": 10.2482140019536
+  },
+  "dynamic_normal_periods": {
+    "mean": 7.107303893337519,
+    "std": 0.48889473747170353,
+    "count": 267624
+  },
+  "dynamic_attack_periods": {
+    "mean": 7.829726652045429,
+    "std": 0.49293597467159433,
+    "count": 16386
+  },
+  "risk_increase_during_attacks": {
+    "percentage": 10.164512022415684
+  },
+  "configuration": {
+    "beta": 1.0,
+    "stride_sensitivities": {
+      "Spoofing": 1.5,
+      "Tampering": 2.0,
+      "Repudiation": 0.5,
+      "Info Disclosure": 0.3,
+      "DoS": 1.2,
+      "Elevation": 1.0
+    },
+    "lstm_smoothing_sigma": 5
+  }
+}

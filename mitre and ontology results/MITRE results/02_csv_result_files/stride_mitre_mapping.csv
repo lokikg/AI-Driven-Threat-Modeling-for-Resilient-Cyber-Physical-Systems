@@ -1,0 +1,20 @@
+Threat_ID,STRIDE_Category,Threat_Description,Component,MITRE_ID,MITRE_Technique,MITRE_Tactic,MITRE_Description
+T1,Tampering,Malicious PLC ladder logic injection,PLC,T0836,Modify Parameter,Impair Process Control,Adversaries may modify process parameters to cause unsafe conditions.
+T1,Tampering,Malicious PLC ladder logic injection,PLC,T0831,Manipulation of Control,Impair Process Control,Adversaries may manipulate control logic or commands.
+T1,Tampering,Malicious PLC ladder logic injection,PLC,T0838,Modify System Firmware,Persistence,Adversaries may modify firmware for persistence.
+T2,Spoofing,Spoofed sensor readings causing unsafe control,Sensor Network,T0856,Spoof Reporting Message,Impair Process Control,Adversaries may spoof reporting messages to hide malicious activity.
+T2,Spoofing,Spoofed sensor readings causing unsafe control,Sensor Network,T0835,Manipulate I/O Image,Impair Process Control,Adversaries may manipulate I/O image to affect process control.
+T2,Spoofing,Spoofed sensor readings causing unsafe control,Sensor Network,T0832,Manipulation of View,Impair Process Control,Adversaries may manipulate operator displays to hide malicious activity.
+T3,Spoofing,SCADA credential theft via phishing,SCADA,T0883,Internet Accessible Device,Initial Access,Adversaries may leverage internet-accessible devices for access.
+T3,Spoofing,SCADA credential theft via phishing,SCADA,T0807,Command-Line Interface,Execution,Adversaries may use command-line interfaces to execute commands.
+T4,DoS,Denial of service against control network,Control Network,T0814,Denial of Service,Inhibit Response Function,Adversaries may perform denial of service attacks.
+T4,DoS,Denial of service against control network,Control Network,T0813,Denial of Control,Inhibit Response Function,Adversaries may deny control commands to process controllers.
+T4,DoS,Denial of service against control network,Control Network,T0826,Loss of Availability,Impact,Adversaries may cause loss of system availability.
+T5,Elevation,Elevation of privilege on HMI workstation,HMI,T0807,Command-Line Interface,Execution,Adversaries may use command-line interfaces to execute commands.
+T5,Elevation,Elevation of privilege on HMI workstation,HMI,T0838,Modify System Firmware,Persistence,Adversaries may modify firmware for persistence.
+T6,Tampering,Tampering with historian data,SCADA,T0809,Data Destruction,Inhibit Response Function,Adversaries may destroy data to disrupt operations.
+T6,Tampering,Tampering with historian data,SCADA,T0872,Indicator Removal on Host,Evasion,Adversaries may remove indicators of compromise.
+T7,DoS,Physical destruction of sensor network,Sensor Network,T0814,Denial of Service,Inhibit Response Function,Adversaries may perform denial of service attacks.
+T7,DoS,Physical destruction of sensor network,Sensor Network,T0816,Device Restart/Shutdown,Inhibit Response Function,Adversaries may restart or shutdown devices.
+T8,Info Disclosure,Information disclosure of control algorithms,PLC,T0802,Automated Collection,Collection,Adversaries may automate collection of sensitive data.
+T8,Info Disclosure,Information disclosure of control algorithms,PLC,T0845,Program Upload,Collection,Adversaries may upload control logic programs for analysis.

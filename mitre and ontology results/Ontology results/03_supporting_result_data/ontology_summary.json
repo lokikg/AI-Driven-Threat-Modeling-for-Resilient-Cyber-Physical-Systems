@@ -1,0 +1,91 @@
+{
+  "statistics": {
+    "total_nodes": 28,
+    "total_edges": 33,
+    "node_types": {
+      "MITRE_Technique": 16,
+      "Component": 5,
+      "STRIDE": 5,
+      "Impact": 2
+    },
+    "relation_types": {
+      "uses": 18,
+      "threatens": 8,
+      "causes": 7
+    }
+  },
+  "top_central_nodes": [
+    {
+      "Node": "Spoofing",
+      "Type": "STRIDE",
+      "Degree_Centrality": 0.2962962962962963,
+      "Betweenness_Centrality": 0.01566951566951567,
+      "PageRank": 0.06280039787596517
+    },
+    {
+      "Node": "System failure, safety hazard",
+      "Type": "Impact",
+      "Degree_Centrality": 0.14814814814814814,
+      "Betweenness_Centrality": 0.0,
+      "PageRank": 0.05926014258813743
+    },
+    {
+      "Node": "DoS",
+      "Type": "STRIDE",
+      "Degree_Centrality": 0.2962962962962963,
+      "Betweenness_Centrality": 0.01638176638176638,
+      "PageRank": 0.04804681704455293
+    },
+    {
+      "Node": "Command-Line Interface",
+      "Type": "MITRE_Technique",
+      "Degree_Centrality": 0.07407407407407407,
+      "Betweenness_Centrality": 0.0,
+      "PageRank": 0.04689415132391574
+    },
+    {
+      "Node": "Elevation",
+      "Type": "STRIDE",
+      "Degree_Centrality": 0.14814814814814814,
+      "Betweenness_Centrality": 0.004273504273504274,
+      "PageRank": 0.04612039406975069
+    },
+    {
+      "Node": "Tampering",
+      "Type": "STRIDE",
+      "Degree_Centrality": 0.3333333333333333,
+      "Betweenness_Centrality": 0.01851851851851852,
+      "PageRank": 0.04578177136013449
+    },
+    {
+      "Node": "Minimal impact, easily recoverable",
+      "Type": "Impact",
+      "Degree_Centrality": 0.1111111111111111,
+      "Betweenness_Centrality": 0.0,
+      "PageRank": 0.04518742802503483
+    },
+    {
+      "Node": "Modify System Firmware",
+      "Type": "MITRE_Technique",
+      "Degree_Centrality": 0.07407407407407407,
+      "Betweenness_Centrality": 0.0,
+      "PageRank": 0.043556620642461685
+    },
+    {
+      "Node": "Internet Accessible Device",
+      "Type": "MITRE_Technique",
+      "Degree_Centrality": 0.037037037037037035,
+      "Betweenness_Centrality": 0.0,
+      "PageRank": 0.03382655274578603
+    },
+    {
+      "Node": "Manipulation of View",
+      "Type": "MITRE_Technique",
+      "Degree_Centrality": 0.037037037037037035,
+      "Betweenness_Centrality": 0.0,
+      "PageRank": 0.03382655274578603
+    }
+  ],
+  "mitre_techniques_covered": 16,
+  "stride_threats_mapped": 8
+}

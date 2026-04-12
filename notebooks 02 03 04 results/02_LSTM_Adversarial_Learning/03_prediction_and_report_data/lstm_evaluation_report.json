@@ -1,0 +1,62 @@
+{
+  "model_info": {
+    "architecture": "Stacked LSTM",
+    "lstm_units": [
+      64,
+      32
+    ],
+    "dense_units": 16,
+    "dropout_rate": 0.2,
+    "input_shape": [
+      30,
+      51
+    ],
+    "total_parameters": 42657
+  },
+  "training_info": {
+    "batch_size": 64,
+    "epochs_trained": 50,
+    "max_epochs": 50,
+    "validation_split": 0.2,
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "loss_function": "binary_crossentropy"
+  },
+  "test_performance": {
+    "accuracy": 0.9956973195075989,
+    "precision": 0.9334057569503784,
+    "recall": 0.9965214133262634,
+    "f1_score": 0.9639315290739494,
+    "roc_auc": 0.999900767837203,
+    "pr_auc": 0.998482833056471,
+    "mcc": 0.9622283450706619,
+    "cohen_kappa": 0.9616463351881113
+  },
+  "confusion_matrix": {
+    "true_negatives": 266459,
+    "false_positives": 1165,
+    "false_negatives": 57,
+    "true_positives": 16329
+  },
+  "threshold_analysis": {
+    "default_threshold": 0.5,
+    "optimal_threshold": 0.88,
+    "optimal_f1": 0.9805762680659118
+  },
+  "probability_statistics": {
+    "normal_windows": {
+      "mean": 0.005445445887744427,
+      "median": 3.3377901331732573e-08,
+      "std": 0.05440083518624306,
+      "min": 2.7280648851046863e-09,
+      "max": 1.0
+    },
+    "attack_windows": {
+      "mean": 0.9904172420501709,
+      "median": 1.0,
+      "std": 0.057814694941043854,
+      "min": 0.001903591793961823,
+      "max": 1.0
+    }
+  }
+}
